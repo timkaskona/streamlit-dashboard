@@ -1,0 +1,17 @@
+stages:
+  - deploy
+
+variables:
+  DEPLOY_PATH: "/home/dashboard/dashboard_streamlit_docker"
+  DEPLOY_USER: "dashboard"
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying to server as $DEPLOY_USER"
+    - sudo su - $DEPLOY_USER -c "cd $DEPLOY_PATH && make update && make re"
+  tags:
+    - selenium_scripts
+  only:
+    - main
+
